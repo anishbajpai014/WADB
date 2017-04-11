@@ -19,7 +19,7 @@ public class ScreenKeeper {
             PowerManager powerManager = (PowerManager) StandardUtils.getApplication().getSystemService(POWER_SERVICE);
             wakeLock = powerManager.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "WADB");
         }
-        if (PreferenceManager.getDefaultSharedPreferences(StandardUtils.getApplication()).getBoolean("pref_key_wake_lock", false)) {
+        if (!wakeLock.isHeld() && PreferenceManager.getDefaultSharedPreferences(StandardUtils.getApplication()).getBoolean("pref_key_wake_lock", false)) {
             wakeLock.acquire();
         }
     }
